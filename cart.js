@@ -1,15 +1,13 @@
 export default class Cart {
-
-    loadCart() {
-
     
-        let cartData = [];
+    static loadCart() {
+        let cartData = {}
         cartData = JSON.parse(localStorage.getItem('items'));
 
         return cartData;
     }
 
-    addCartItem(subclass, name, price, image, source) {
+    static addCartItem(subclass, name, price, image, source) {
 
         let item = {};
         item.name = name;
@@ -28,16 +26,12 @@ export default class Cart {
         localStorage.setItem('items', JSON.stringify(cartData));
     }
 
-    removeCartItem(subclass, itemName) {
+    static removeCartItem(subclass, itemName) {
         let cartData = JSON.parse(localStorage.getItem('items'));
 
         const index = cartData.subclass;
         cartData.splice(index, 1);
         localStorage.setItem(('items'), JSON.stringify(cartData));
-
-    }
-
-    displayCart() {
 
     }
 
