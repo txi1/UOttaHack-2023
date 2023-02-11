@@ -4,7 +4,7 @@
     "version": "1.0",
     "manifest_version": 3,
     "background": {
-        "page": "htllo.html"
+        "service_worker": "scrape.js"
     },
     "action": {
       "default_popup": "hello.html"
@@ -12,7 +12,7 @@
     "content_scripts": [{
       "matches": [
         "<all_urls>"
-      ],
+      ],    
       "js": ["scrape.js"]
     }]
   }
