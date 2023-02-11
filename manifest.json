@@ -14,6 +14,12 @@
         "<all_urls>"
       ],    
       "js": ["content.js"]
-    }]
+    }],
+    "permissions":[
+        "scripting",
+        "activeTab",
+        "debugger"
+
+    ]
   }
   
