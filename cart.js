@@ -19,6 +19,6 @@ function removeCartItem(itemName){
     displayCart();
 }
 
-function displayCart(){
-
+export default function displayCart(){
+    console.log("a");
 }
