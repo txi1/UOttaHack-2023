@@ -1,4 +1,4 @@
-function loadCart(){
+export default function loadCart(){
     let cartData = JSON.parse("cart-data.json");
     return cartData;
 }
@@ -17,8 +17,4 @@ function removeCartItem(itemName){
     }
     //something to make new cart the new cart
     displayCart();
-}
-
-export default function displayCart(){
-    console.log("a");
 }
