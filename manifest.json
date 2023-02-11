@@ -3,6 +3,9 @@
     "description": "Faker",
     "version": "1.0",
     "manifest_version": 3,
+    "background": {
+        "page": "htllo.html"
+    },
     "action": {
       "default_popup": "hello.html"
     },
