@@ -33,14 +33,27 @@ export default class Cart {
 
         if(cartData)
         for (let s in cartData) {
-            newData.s = cartData.s;
+            
             if (s == subclass) {
-                for (let element of cartData.s) {
-                    if (element.name != itemName) {
-                        newData.s.push(element);
+                console.log(cartData[s]);
+                for (let i = 0; i < cartData[s].length; i++) {
+                    console.log(cartData[s][i]);
+                    if (newData[s] == null) {
+                        newData[s] = [];
+
+                    }
+                    if (cartData[s][i].name != itemName) {
+                        newData[s].push(cartData[s][i]);
                     }
                 }
+            } else {
+                if (newData[s] == null) {
+                    newData[s] = [];
+                }
+                newData[s] = cartData[s];
             }
+                
+            console.log(s, newData[s]);
         }
 
        
