@@ -21,6 +21,7 @@ export async function addItem(item, category) {
         let price = document.createElement("th");
         price.style.width = "25%";
 
+
         let remove = document.createElement("th");
         remove.style.width = "25%";
 
@@ -50,6 +51,8 @@ export async function addItem(item, category) {
         table.style.border = "0.5px solid black";
         let name = document.createElement("th");
         name.style.width = "50%";
+        name.setAttribute('url', item['source']);
+        name.addEventListener('click', sendToUrl, false);
 
         let price = document.createElement("th");
         price.style.width = "25%";
@@ -105,6 +108,13 @@ function removeItem(evt) {
     console.log("removing", evt.currentTarget.getAttribute('category'), evt.currentTarget.getAttribute('name'));
 
     Cart.removeCartItem(evt.currentTarget.getAttribute('category'), evt.currentTarget.getAttribute('name'));
+
+    regenerate();
+}
+
+function sendToUrl(evt) {
+    console.log(evt.currentTarget.getAttribute('url'));
+    chrome.tabs.create({ url: evt.currentTarget.getAttribute('url') });
 
     regenerate();
 }
