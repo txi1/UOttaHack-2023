@@ -12,9 +12,9 @@
 .item{
     list-style-type: none;
     margin-left: 0px;
-    border-bottom: 1px solid lightsalmon;
+    /* border-bottom: 1px solid lightsalmon;
     border-bottom-right-radius: 5%;
-    border-bottom-left-radius: 5%;
+    border-bottom-left-radius: 5%; */
 }
 .category{
     list-style-type: none;
