@@ -18,4 +18,3 @@ export default async function addItem(item){
     document.getElementById("itemList").appendChild(fragment);
 }
 
-document.getElementById("testButton").addEventListener("click", addItem);
