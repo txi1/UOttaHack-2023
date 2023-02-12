@@ -18,7 +18,12 @@ function populateCartPage() {
 }
 
 function addToCart() {
-    let scrapedItem = scrape()
+    let scrapedItem = scrape();
+
+}
+
+function removeFromCart(subclass, name) {
+    Cart.removeCartItem(subclass, name);
 }
 
 document.getElementById("addToCart").addEventListener("click", addToCart);
