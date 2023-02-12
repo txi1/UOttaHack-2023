@@ -21,7 +21,9 @@ function populateCartPage() {
     }
 }
 
-function populateCategory(categoryName) {
+export function populateCategory(evt) {
+    let categoryName = evt.currentTarget.getAttribute("categoryId");
+    console.log(categoryName);
     removeItems();
     let cart = Cart.loadCart();
     for(let itemIndex in cart[categoryName]){
