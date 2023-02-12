@@ -9,6 +9,7 @@ window.onload = function() {
 }
 
 function populateCartPage() {
+    // add 
     let cart = Cart.loadCart();
     console.log(cart);
     for(let category in cart) {
@@ -20,9 +21,11 @@ function populateCartPage() {
     }
 }
 
-function populateCategory() {
+function populateCategory(categoryName) {
     let cart = Cart.loadCart();
-    
+    for(let itemIndex in cart[categoryName]){
+        addItem(cart[categoryName][itemIndex], categoryName);
+    }
 }
 
 function addToCart() {

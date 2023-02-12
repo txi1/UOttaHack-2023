@@ -1,4 +1,4 @@
-export async function addItem(item) {
+export async function addItem(item, category) {
     if(item === null) {
         item = {name:"test item", price:"1", image:"gr"}
     }
@@ -11,7 +11,7 @@ export async function addItem(item) {
     fragment.querySelector("li").appendChild(document.createElement("span")).textContent = item["name"];
     fragment.querySelector("li").setAttribute("itemId", item["name"]);
     
-    document.getElementById(item["category"]);
+    document.getElementById(category).appendChild(fragment);
     return item;
 }
 
