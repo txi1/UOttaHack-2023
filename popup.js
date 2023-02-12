@@ -33,7 +33,6 @@ function doDOMstuff(dom){
 function populateCartPage() {
     removeItems();
     let cart = Cart.loadCart();
-    console.log(cart);
     for(let category in cart) {
         console.log(category);
         addCategory(category);
@@ -64,7 +63,7 @@ function removeFromCart(subclass, name) {
     Cart.removeCartItem(subclass, name);
 }
 
-function regenerate(categoryName){
+export function regenerate(categoryName){
     removeItems();
     if(categoryName === null){
    

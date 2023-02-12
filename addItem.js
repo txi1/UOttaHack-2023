@@ -1,4 +1,5 @@
-import { populateCategory } from "/popup.js";
+import { populateCategory, regenerate } from "/popup.js";
+import Cart from './cart.js';
 
 export async function addItem(item, category) {
     if (item === null) {
@@ -89,11 +90,9 @@ export async function addCategory(category) {
     fragment.querySelector("li").setAttribute("categoryId", category);
 
     fragment.querySelector("li").addEventListener("click", populateCategory, false);
-
-   
-  
   
     document.getElementById("categoryList").appendChild(fragment);
+    Cart.addCartCategory(category);
     return category;
 }
 
@@ -104,3 +103,32 @@ export async function removeItems() {
         document.querySelector("html").style.height = document.querySelector(".main-container").clientHeight;
     }
 }
+
+function parseAddInput(){
+    let value = document.querySelector("input").value;
+    let cart = Cart.loadCart();
+    for(let category in cart){
+        if(category == value){
+            alert("Category " +value +" already exists.");
+            return;
+        }
+    }
+    addCategory(value);
+}
+
+function parseRemoveInput(){
+    let value = document.querySelector("input").value;
+    let cart = Cart.loadCart();
+    for(let category in cart){
+        if(category == value){
+            Cart.removeCartCategory(value);
+            document.querySelector('[categoryid="' + value + '"]').parentNode.removeChild(document.querySelector('[categoryid="' + value + '"]'));
+            document.querySelector("html").style.height = document.querySelector(".main-container").clientHeight;
+            return;
+        }
+    }
+    alert("Category " +value +" does not exist.");
+}
+
+document.getElementById("addCategory").addEventListener("click", parseAddInput);
+document.getElementById("removeCategory").addEventListener("click", parseRemoveInput);

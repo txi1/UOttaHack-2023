@@ -36,6 +36,23 @@ export default class Cart {
         localStorage.setItem('items', JSON.stringify(cartData));
     }
 
+    static addCartCategory(category){
+        let cartData = JSON.parse(localStorage.getItem('items'));
+        if (cartData == null) {
+            cartData = {};
+        }
+        if (cartData[category] == null)
+            cartData[category] = [];
+        localStorage.setItem('items', JSON.stringify(cartData));
+    }
+
+    static removeCartCategory(category){
+        let cartData = JSON.parse(localStorage.getItem('items'));
+        delete cartData[category]
+        console.log(cartData);
+        localStorage.setItem('items', JSON.stringify(cartData));
+    }
+
     static removeCartItem(subclass, itemName) {
         let cartData = JSON.parse(localStorage.getItem('items'));
 
