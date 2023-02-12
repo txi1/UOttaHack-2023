@@ -9,7 +9,7 @@ window.onload = function() {
 }
 
 function populateCartPage() {
-    removeItems()
+    removeItems();
     let cart = Cart.loadCart();
     console.log(cart);
     for(let category in cart) {
@@ -22,6 +22,7 @@ function populateCartPage() {
 }
 
 function populateCategory(categoryName) {
+    removeItems();
     let cart = Cart.loadCart();
     for(let itemIndex in cart[categoryName]){
         addItem(cart[categoryName][itemIndex], categoryName);

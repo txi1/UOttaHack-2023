@@ -31,5 +31,8 @@ export async function addCategory(category) {
 }
 
 export async function removeItems() {
-    
+    const elements = document.getElementsByClassName("item");
+    while(elements.length > 0){
+        elements[0].parentNode.removeChild(elements[0]);
+    }
 }
