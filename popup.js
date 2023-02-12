@@ -25,6 +25,7 @@ function doDOMstuff(dom){
     const doc = new DOMParser().parseFromString(dom, "text/html")
     let scrapedItem = scrape(doc)
     Cart.addCartItem(scrapedItem["name"], scrapedItem["price"], scrapedItem["image"], scrapedItem["source"]);
+    regenerate(Cart.category);
     console.log(Cart.loadCart());
 }
 
@@ -50,12 +51,7 @@ export function populateCategory(evt) {
         Cart.category = null;
         return;
     }
-    let cart = Cart.loadCart();
-    addItem("legend", categoryName);
-    for (let itemIndex in cart[categoryName]) {
-        addItem(cart[categoryName][itemIndex], categoryName);
-    }
-    Cart.updateCategory(categoryName)
+    regenerate(categoryName);
 }
 
 function addToCart() {
@@ -66,6 +62,20 @@ function addToCart() {
 
 function removeFromCart(subclass, name) {
     Cart.removeCartItem(subclass, name);
+}
+
+function regenerate(categoryName){
+    removeItems();
+    if(categoryName === null){
+   
+        return;
+    }
+    let cart = Cart.loadCart();
+    addItem("legend", categoryName);
+    for (let itemIndex in cart[categoryName]) {
+        addItem(cart[categoryName][itemIndex], categoryName);
+    }
+    Cart.updateCategory(categoryName)
 }
 
 document.getElementById("addToCart").addEventListener("click", addToCart);
