@@ -16,7 +16,7 @@ function scrape(domContent){
     let price = null
     if(url.includes("amazon")){
         product = domContent.getElementById("productTitle").innerText
-        price = domContent.getElementsByClassName("a-offscreen")[0].innerText
+        price = domContent.getElementsByClassName("priceToPay")[0].innerText
     }
     return {"name":product,"price":price,"source":url}
 }
