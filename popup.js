@@ -11,13 +11,18 @@ chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
 });
 
 function scrape(domContent){
-    console.log(domContent)
+    console.log(url)
     let product = null
     let price = null
-    if(url.includes("amazon")){
+    if(url.includes("www.amazon")){
         product = domContent.getElementById("productTitle").innerText
         price = domContent.getElementsByClassName("priceToPay")[0].innerText
+    }else if(url.includes("www.ebay")){
+        product = domContent.querySelector(".x-item-title__mainTitle .ux-textspans").innerText
+        price = domContent.querySelector('[itemprop=price]').getAttribute("content")
+        price = "$" + price
     }
+    console.log({"name":product,"price":price,"source":url})
     return {"name":product,"price":price,"source":url}
 }
 
