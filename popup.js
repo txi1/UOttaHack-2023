@@ -33,9 +33,9 @@ export function populateCategory(evt) {
 
 function addToCart() {
     // let scrapedItem = scrape();
-    let scrapedItem = null;
-    addCartItem(scrapedItem["subclass"], scrapedItem["name"], scrapedItem["price"], scrapedItem["image"], scrapedItem["source"]);
-    
+    let scrapedItem = {subclass:"t3", name:"pee bottle", price:"100", image:"a", source:"google.ca" };
+    Cart.addCartItem(scrapedItem["subclass"], scrapedItem["name"], scrapedItem["price"], scrapedItem["image"], scrapedItem["source"]);
+    console.log(Cart.loadCart());
 }
 
 function removeFromCart(subclass, name) {
