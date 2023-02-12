@@ -9,8 +9,9 @@ window.onload = function() {
     Cart.addCartItem("t2", "name2", "price", "image", "source");
     Cart.addCartItem("t2", "name3", "price", "image", "source");
     console.log(Cart.loadCart());
-    //c.removeCartItem("t2, name2");
-    //console.log(c.loadCard());
+    Cart.removeCartItem("t2, name2");
+    console.log(Cart.loadCart());
+    Cart.clear();
 
 }
 

@@ -29,10 +29,27 @@ export default class Cart {
     static removeCartItem(subclass, itemName) {
         let cartData = JSON.parse(localStorage.getItem('items'));
 
-        const index = cartData.subclass;
-        cartData.splice(index, 1);
-        localStorage.setItem(('items'), JSON.stringify(cartData));
+        let newData = {};
 
+        if(cartData)
+        for (let s in cartData) {
+            newData.s = cartData.s;
+            if (s == subclass) {
+                for (let element of cartData.s) {
+                    if (element.name != itemName) {
+                        newData.s.push(element);
+                    }
+                }
+            }
+        }
+
+       
+        localStorage.setItem(('items'), JSON.stringify(newData));
+
+    }
+
+    static clear() {
+        localStorage.setItem(('items'), JSON.stringify({}));
     }
 
 }
