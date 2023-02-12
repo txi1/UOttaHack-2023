@@ -2,9 +2,6 @@ import { addCategory, addItem, removeItems } from './addItem.js';
 import Cart from './cart.js';
 
 window.onload = function() {
-    // Cart.addCartItem("t1", "name1", "price", "image", "source");
-    // Cart.addCartItem("t2", "name2", "price", "image", "source");
-    // Cart.addCartItem("t2", "name3", "price", "image", "source");
     populateCartPage()
 }
 
@@ -27,7 +24,7 @@ function scrape(domContent){
 function doDOMstuff(dom){
     const doc = new DOMParser().parseFromString(dom, "text/html")
     let scrapedItem = scrape(doc)
-    Cart.addCartItem("t3", scrapedItem["name"], scrapedItem["price"], scrapedItem["image"], scrapedItem["source"]);
+    Cart.addCartItem(scrapedItem["name"], scrapedItem["price"], scrapedItem["image"], scrapedItem["source"]);
     console.log(Cart.loadCart());
 }
 
@@ -53,6 +50,7 @@ export function populateCategory(evt) {
     for(let itemIndex in cart[categoryName]){
         addItem(cart[categoryName][itemIndex], categoryName);
     }
+    Cart.updateCategory(categoryName)
 }
 
 function addToCart() {

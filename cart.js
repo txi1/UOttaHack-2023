@@ -1,5 +1,12 @@
 export default class Cart {
-    
+    static category = null
+
+    static updateCategory(c){
+        console.log("updating category")
+        console.log(c)
+        this.category = c
+    }
+
     static loadCart() {
         let cartData = {}
         cartData = JSON.parse(localStorage.getItem('items'));
@@ -7,8 +14,11 @@ export default class Cart {
         return cartData;
     }
 
-    static addCartItem(subclass, name, price, image, source) {
-
+    static addCartItem(name, price, image, source) {
+        if(this.category == null){
+            alert("please select or add category first")
+            return
+        }
         let item = {};
         item.name = name;
         item.price = price;
@@ -19,9 +29,9 @@ export default class Cart {
         if (cartData == null) {
             cartData = {};
         }
-        if (cartData[subclass] == null)
-            cartData[subclass] = [];
-        cartData[subclass].push(item);
+        if (cartData[this.category] == null)
+            cartData[this.category] = [];
+        cartData[this.category].push(item);
 
         localStorage.setItem('items', JSON.stringify(cartData));
     }

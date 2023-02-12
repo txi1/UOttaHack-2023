@@ -1,4 +1,4 @@
-import {populateCategory} from "/popup.js";
+import { populateCategory } from "/popup.js";
 
 export async function addItem(item, category) {
     if(item === null) {

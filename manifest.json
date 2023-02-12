@@ -1,6 +1,5 @@
 {
-    "name": "You are so fake",
-    "description": "Faker",
+    "name": "Product memory aide",
     "version": "1.0",
     "manifest_version": 3,
     "background": {
