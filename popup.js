@@ -22,5 +22,5 @@ function populateCartPage() {
 }
 
 function addToCart() {
-
+    let scrapedItem = scrape()
 }
