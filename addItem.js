@@ -1,3 +1,5 @@
+import {populateCategory} from "/popup.js";
+
 export async function addItem(item) {
     if(item === null) {
         item = {name:"test item", price:"1", image:"gr"}
@@ -25,7 +27,7 @@ export async function addCategory(category) {
     fragment.querySelector("li").setAttribute("class", "category");
     fragment.querySelector("li").appendChild(document.createElement("span")).textContent = category;
     fragment.querySelector("li").setAttribute("categoryId", category);
-
+    fragment.querySelector("li").addEventListener("click", populateCategory, false);
     document.getElementById("categoryList").appendChild(fragment);
     return category;
 }

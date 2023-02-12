@@ -20,7 +20,9 @@ function populateCartPage() {
     }
 }
 
-function populateCategory() {
+export function populateCategory(evt) {
+    let test = evt.currentTarget.getAttribute("categoryId");
+    console.log(test);
     let cart = Cart.loadCart();
     
 }
