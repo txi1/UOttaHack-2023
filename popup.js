@@ -18,7 +18,7 @@ function scrape(domContent){
     if(url.includes("www.amazon")){
         let price2 = "";
         product = domContent.getElementById("productTitle").innerText
-        price = domContent.getElementsByClassName("priceToPay")[0].innerText
+        price = domContent.querySelector(".a-price .a-offscreen").innerText
         let dollarSignCount = 0;
         for(let i in price){
             if(price[i] === "$"){
