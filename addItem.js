@@ -1,20 +1,31 @@
-export default async function addItem(item){
-    if(item === null){
+export async function addItem(item) {
+    if(item === null) {
         item = {name:"test item", price:"1", image:"gr"}
     }
-    console.log("item to add: "+item)
     const fragment = document.createDocumentFragment();
     const li = fragment
     .appendChild(document.createElement('li'))
     .appendChild(document.createElement('img')).setAttribute("class", "icon");
-    console.log(item["image"]);
     fragment.querySelector("img").setAttribute("src", item["image"]);
     fragment.querySelector("li").setAttribute("class", "item");
-    console.log(item["name"]);
     fragment.querySelector("li").appendChild(document.createElement("span")).textContent = item["name"];
-    // fragment.querySelector("li").textContent = "Test Item";
-    // li.querySelector('img').src = "placeholder.png";
+    fragment.querySelector("li").setAttribute("itemId", item["name"]);
     
-    document.getElementById("itemList").appendChild(fragment);
+    document.getElementById(item["category"]);
+    return item;
 }
 
+export async function addCategory(category) {
+    if(category === null) {
+        category = "test category";
+    }
+    const fragment = document.createDocumentFragment();
+    const li = fragment
+    .appendChild(document.createElement('li'));
+    fragment.querySelector("li").setAttribute("class", "category");
+    fragment.querySelector("li").appendChild(document.createElement("span")).textContent = category;
+    fragment.querySelector("li").setAttribute("categoryId", category);
+
+    document.getElementById("categoryList").appendChild(fragment);
+    return category;
+}
