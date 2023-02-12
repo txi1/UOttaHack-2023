@@ -1,4 +1,4 @@
-import {addItem, addCategory, removeItems} from './addItem.js';
+import { addCategory, addItem, removeItems } from './addItem.js';
 import Cart from './cart.js';
 
 window.onload = function() {
@@ -7,6 +7,30 @@ window.onload = function() {
     // Cart.addCartItem("t2", "name3", "price", "image", "source");
     populateCartPage()
 }
+
+let url = ""
+chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
+    url = tabs[0].url;
+});
+
+function scrape(domContent){
+    console.log(domContent)
+    let product = null
+    let price = null
+    if(url.includes("amazon")){
+        product = domContent.getElementById("productTitle").innerText
+        price = domContent.getElementsByClassName("a-offscreen")[0].innerText
+    }
+    return {"name":product,"price":price,"source":url}
+}
+
+function doDOMstuff(dom){
+    const doc = new DOMParser().parseFromString(dom, "text/html")
+    let scrapedItem = scrape(doc)
+    Cart.addCartItem("t3", scrapedItem["name"], scrapedItem["price"], scrapedItem["image"], scrapedItem["source"]);
+    console.log(Cart.loadCart());
+}
+
 
 function populateCartPage() {
     removeItems();
@@ -32,10 +56,9 @@ export function populateCategory(evt) {
 }
 
 function addToCart() {
-    // let scrapedItem = scrape();
-    let scrapedItem = {subclass:"t3", name:"pee bottle", price:"100", image:"a", source:"google.ca" };
-    Cart.addCartItem(scrapedItem["subclass"], scrapedItem["name"], scrapedItem["price"], scrapedItem["image"], scrapedItem["source"]);
-    console.log(Cart.loadCart());
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+        chrome.tabs.sendMessage(tabs[0].id, {type:"dom"}, function(response) {doDOMstuff(response)})
+    });
 }
 
 function removeFromCart(subclass, name) {
