@@ -1,4 +1,4 @@
-import {addItem, addCategory} from './addItem.js';
+import {addItem, addCategory, removeItems} from './addItem.js';
 import Cart from './cart.js';
 
 window.onload = function() {
@@ -9,7 +9,7 @@ window.onload = function() {
 }
 
 function populateCartPage() {
-    // add 
+    removeItems()
     let cart = Cart.loadCart();
     console.log(cart);
     for(let category in cart) {
@@ -31,7 +31,8 @@ function populateCategory(categoryName) {
 function addToCart() {
     // let scrapedItem = scrape();
     let scrapedItem = null;
-    return addItem(scrapedItem);
+    addCartItem(scrapedItem["subclass"], scrapedItem["name"], scrapedItem["price"], scrapedItem["image"], scrapedItem["source"]);
+    
 }
 
 function removeFromCart(subclass, name) {

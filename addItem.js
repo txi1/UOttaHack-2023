@@ -29,3 +29,7 @@ export async function addCategory(category) {
     document.getElementById("categoryList").appendChild(fragment);
     return category;
 }
+
+export async function removeItems() {
+    
+}
