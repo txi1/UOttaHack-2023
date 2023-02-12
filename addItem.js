@@ -57,7 +57,7 @@ export async function addItem(item, category) {
         remove.style.width = "25%";
 
         table.appendChild(name).textContent = item["name"];
-        table.appendChild(price).textContent = "$" + item["price"];
+        table.appendChild(price).textContent = item["price"];
         table.appendChild(remove).textContent = "remove";
 
         fragment.querySelector("li").appendChild(table);
