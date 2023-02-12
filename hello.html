@@ -7,16 +7,15 @@
         <div class="main-container">
             <h1 class="heading-text">Your Items</h1>
             <div>
-                <ul class="items">
-                    <li class="item"><img class="icon" src="placeholder.png"/>Example list item 1</li>
-                    <li class="item"><img class="icon" src="placeholder.png"/>Example list item 2</li>
-                    <li class="item"><img class="icon" src="placeholder.png"/>Example list item 3</li>
-                </ul>
+                <ul id="categoryList" class="categories"></ul>
             </div>
             <button id="button" class="button">Compare</button>
+            <button id="addToCart" class="button">Add Item to Cart</button>
             <div class="itemInfo">
             </div>
         </div>
-        <script src="popup.js"></script>
+        <script src="addItem.js" type="module"></script>
+        <script type="module" src="cart.js"></script>
+        <script type="module" src="popup.js"></script>
     </body>
 </html>

@@ -1,5 +1,14 @@
-let url = ""
+import { addCategory, addItem, removeItems } from './addItem.js';
+import Cart from './cart.js';
 
+window.onload = function() {
+    // Cart.addCartItem("t1", "name1", "price", "image", "source");
+    // Cart.addCartItem("t2", "name2", "price", "image", "source");
+    // Cart.addCartItem("t2", "name3", "price", "image", "source");
+    populateCartPage()
+}
+
+let url = ""
 chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
     url = tabs[0].url;
 });
@@ -10,18 +19,50 @@ function scrape(domContent){
     let price = null
     if(url.includes("amazon")){
         product = domContent.getElementById("productTitle").innerText
-        console.log(product)
         price = domContent.getElementsByClassName("a-offscreen")[0].innerText
-        console.log(price)
     }
+    return {"name":product,"price":price,"source":url}
 }
 
 function doDOMstuff(dom){
     const doc = new DOMParser().parseFromString(dom, "text/html")
-    scrape(doc)
+    let scrapedItem = scrape(doc)
+    Cart.addCartItem("t3", scrapedItem["name"], scrapedItem["price"], scrapedItem["image"], scrapedItem["source"]);
+    console.log(Cart.loadCart());
 }
 
-chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
-    chrome.tabs.sendMessage(tabs[0].id, {type:"dom"}, function(response) {doDOMstuff(response)})
-});
 
+function populateCartPage() {
+    removeItems();
+    let cart = Cart.loadCart();
+    console.log(cart);
+    for(let category in cart) {
+        console.log(category);
+        addCategory(category);
+        // for(let item of cart[category]) {
+        //     addItem(item);
+        // }
+    }
+}
+
+export function populateCategory(evt) {
+    let categoryName = evt.currentTarget.getAttribute("categoryId");
+    console.log(categoryName);
+    removeItems();
+    let cart = Cart.loadCart();
+    for(let itemIndex in cart[categoryName]){
+        addItem(cart[categoryName][itemIndex], categoryName);
+    }
+}
+
+function addToCart() {
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+        chrome.tabs.sendMessage(tabs[0].id, {type:"dom"}, function(response) {doDOMstuff(response)})
+    });
+}
+
+function removeFromCart(subclass, name) {
+    Cart.removeCartItem(subclass, name);
+}
+
+document.getElementById("addToCart").addEventListener("click", addToCart);
