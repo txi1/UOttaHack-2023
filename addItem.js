@@ -101,5 +101,6 @@ export async function removeItems() {
     const elements = document.getElementsByClassName("item");
     while(elements.length > 0){
         elements[0].parentNode.removeChild(elements[0]);
+        document.querySelector("html").style.height = document.querySelector(".main-container").clientHeight;
     }
 }
