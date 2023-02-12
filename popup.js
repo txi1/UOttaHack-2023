@@ -46,6 +46,10 @@ export function populateCategory(evt) {
     let categoryName = evt.currentTarget.getAttribute("categoryId");
     console.log(categoryName);
     removeItems();
+    if(categoryName === Cart.category) {
+        Cart.category = null;
+        return;
+    }
     let cart = Cart.loadCart();
     addItem("legend", categoryName);
     for (let itemIndex in cart[categoryName]) {
