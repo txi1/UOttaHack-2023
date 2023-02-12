@@ -11,13 +11,31 @@ chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
 });
 
 function scrape(domContent){
-    console.log(domContent)
+    console.log(url)
     let product = null
     let price = null
-    if(url.includes("amazon")){
+    
+    if(url.includes("www.amazon")){
+        let price2 = "";
         product = domContent.getElementById("productTitle").innerText
         price = domContent.getElementsByClassName("priceToPay")[0].innerText
+        let dollarSignCount = 0;
+        for(let i in price){
+            if(price[i] === "$"){
+                dollarSignCount++;
+            }
+            if(dollarSignCount >= 2){
+                break;
+            }
+            price2 += price[i];
+        }
+        price = price2
+    }else if(url.includes("www.ebay")){
+        product = domContent.querySelector(".x-item-title__mainTitle .ux-textspans").innerText
+        price = domContent.querySelector('[itemprop=price]').getAttribute("content")
+        price = "$" + price
     }
+    console.log({"name":product,"price":price,"source":url})
     return {"name":product,"price":price,"source":url}
 }
 
@@ -66,7 +84,6 @@ function removeFromCart(subclass, name) {
 export function regenerate(categoryName){
     removeItems();
     if(categoryName === null){
-   
         return;
     }
     let cart = Cart.loadCart();
