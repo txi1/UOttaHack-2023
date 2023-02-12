@@ -14,9 +14,22 @@ function scrape(domContent){
     console.log(url)
     let product = null
     let price = null
+    
     if(url.includes("www.amazon")){
+        let price2 = "";
         product = domContent.getElementById("productTitle").innerText
         price = domContent.getElementsByClassName("priceToPay")[0].innerText
+        let dollarSignCount = 0;
+        for(let i in price){
+            if(price[i] === "$"){
+                dollarSignCount++;
+            }
+            if(dollarSignCount >= 2){
+                break;
+            }
+            price2 += price[i];
+        }
+        price = price2
     }else if(url.includes("www.ebay")){
         product = domContent.querySelector(".x-item-title__mainTitle .ux-textspans").innerText
         price = domContent.querySelector('[itemprop=price]').getAttribute("content")
@@ -30,6 +43,7 @@ function doDOMstuff(dom){
     const doc = new DOMParser().parseFromString(dom, "text/html")
     let scrapedItem = scrape(doc)
     Cart.addCartItem(scrapedItem["name"], scrapedItem["price"], scrapedItem["image"], scrapedItem["source"]);
+    regenerate(Cart.category);
     console.log(Cart.loadCart());
 }
 
@@ -55,12 +69,7 @@ export function populateCategory(evt) {
         Cart.category = null;
         return;
     }
-    let cart = Cart.loadCart();
-    addItem("legend", categoryName);
-    for (let itemIndex in cart[categoryName]) {
-        addItem(cart[categoryName][itemIndex], categoryName);
-    }
-    Cart.updateCategory(categoryName)
+    regenerate(categoryName);
 }
 
 function addToCart() {
@@ -71,6 +80,19 @@ function addToCart() {
 
 function removeFromCart(subclass, name) {
     Cart.removeCartItem(subclass, name);
+}
+
+function regenerate(categoryName){
+    removeItems();
+    if(categoryName === null){
+        return;
+    }
+    let cart = Cart.loadCart();
+    addItem("legend", categoryName);
+    for (let itemIndex in cart[categoryName]) {
+        addItem(cart[categoryName][itemIndex], categoryName);
+    }
+    Cart.updateCategory(categoryName)
 }
 
 document.getElementById("addToCart").addEventListener("click", addToCart);

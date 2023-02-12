@@ -57,7 +57,7 @@ export async function addItem(item, category) {
         remove.style.width = "25%";
 
         table.appendChild(name).textContent = item["name"];
-        table.appendChild(price).textContent = "$" + item["price"];
+        table.appendChild(price).textContent = item["price"];
         table.appendChild(remove).textContent = "remove";
 
         fragment.querySelector("li").appendChild(table);
@@ -101,5 +101,6 @@ export async function removeItems() {
     const elements = document.getElementsByClassName("item");
     while(elements.length > 0){
         elements[0].parentNode.removeChild(elements[0]);
+        document.querySelector("html").style.height = document.querySelector(".main-container").clientHeight;
     }
 }
