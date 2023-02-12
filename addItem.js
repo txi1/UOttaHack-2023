@@ -5,14 +5,35 @@ export async function addItem(item, category) {
         item = {name:"test item", price:"1", image:"gr"}
     }
     const fragment = document.createDocumentFragment();
-    const li = fragment
-    .appendChild(document.createElement('li'))
-    .appendChild(document.createElement('img')).setAttribute("class", "icon");
-    fragment.querySelector("img").setAttribute("src", "placeholder.png");
-    fragment.querySelector("li").setAttribute("class", "item");
-    fragment.querySelector("li").appendChild(document.createElement("span")).textContent = item["name"];
-    fragment.querySelector("li").setAttribute("itemId", item["name"]);
+   
+    const li = fragment.appendChild(document.createElement('li'));
+    
 
+    
+    let table = document.createElement("table");
+    table.setAttribute("class", "item");
+    table.style.width = "100%";
+  
+
+    let name = document.createElement("th");
+    name.style.width = "50%";
+    
+    let price = document.createElement("th");
+    price.style.width = "25%";
+    let remove = document.createElement("th");
+    remove.style.width = "25%";
+
+    table.appendChild(name).textContent = item["name"];
+    table.appendChild(price).textContent = "$" + item["price"];
+    table.appendChild(remove).textContent = "remove";
+
+    fragment.querySelector("li").appendChild(table);
+    fragment.querySelector("li").setAttribute("itemId", item["name"]);
+    
+    fragment.querySelector("li").setAttribute("class", "itemLi");
+
+
+   
     document.querySelector('[categoryid="' +category +'"]').appendChild(fragment);
     return item;
 }
@@ -26,8 +47,17 @@ export async function addCategory(category) {
     .appendChild(document.createElement('li'));
     fragment.querySelector("li").setAttribute("class", "category");
     fragment.querySelector("li").appendChild(document.createElement("span")).textContent = category;
+    fragment.querySelector("li").appendChild(document.createElement('img')).setAttribute("class", "dropdownIcon");
+    fragment.querySelector("li").querySelector('img').setAttribute("src", "dropdown.png");
+  //  fragment.querySelector("li").querySelector('img').style = "float: right";
+
     fragment.querySelector("li").setAttribute("categoryId", category);
+
     fragment.querySelector("li").addEventListener("click", populateCategory, false);
+
+   
+  
+  
     document.getElementById("categoryList").appendChild(fragment);
     return category;
 }
