@@ -69,6 +69,7 @@ export default class Cart {
                         newData[s] = [];
 
                     }
+                    console.log(cartData[s][i].name == itemName, cartData[s][i].name, itemName);
                     if (cartData[s][i].name != itemName) {
                         newData[s].push(cartData[s][i]);
                     }

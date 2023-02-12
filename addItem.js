@@ -56,10 +56,15 @@ export async function addItem(item, category) {
 
         let remove = document.createElement("th");
         remove.style.width = "25%";
+        remove.setAttribute('name', item['name']);
+        remove.setAttribute('category', category);
+        remove.addEventListener('click', removeItem, false);
+
 
         table.appendChild(name).textContent = item["name"];
         table.appendChild(price).textContent = item["price"];
         table.appendChild(remove).textContent = "remove";
+        
 
         fragment.querySelector("li").appendChild(table);
         fragment.querySelector("li").setAttribute("itemId", item["name"]);
@@ -94,6 +99,14 @@ export async function addCategory(category) {
     document.getElementById("categoryList").appendChild(fragment);
     Cart.addCartCategory(category);
     return category;
+}
+
+function removeItem(evt) {
+    console.log("removing", evt.currentTarget.getAttribute('category'), evt.currentTarget.getAttribute('name'));
+
+    Cart.removeCartItem(evt.currentTarget.getAttribute('category'), evt.currentTarget.getAttribute('name'));
+
+    regenerate();
 }
 
 export async function removeItems() {
