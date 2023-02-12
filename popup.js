@@ -47,7 +47,8 @@ export function populateCategory(evt) {
     console.log(categoryName);
     removeItems();
     let cart = Cart.loadCart();
-    for(let itemIndex in cart[categoryName]){
+    addItem("legend", categoryName);
+    for (let itemIndex in cart[categoryName]) {
         addItem(cart[categoryName][itemIndex], categoryName);
     }
     Cart.updateCategory(categoryName)

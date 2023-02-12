@@ -1,41 +1,76 @@
 import { populateCategory } from "/popup.js";
 
 export async function addItem(item, category) {
-    if(item === null) {
-        item = {name:"test item", price:"1", image:"gr"}
+    if (item === null) {
+        item = { name: "test item", price: "1", image: "gr" }
+    } else if (item == "legend") {
+        const fragment = document.createDocumentFragment();
+
+        const li = fragment.appendChild(document.createElement('li'));
+
+
+
+        let table = document.createElement("table");
+        table.setAttribute("class", "item");
+        table.style.width = "100%";
+        table.style.border = "0.5px solid black";
+        let name = document.createElement("th");
+        name.style.width = "50%";
+
+        let price = document.createElement("th");
+        price.style.width = "25%";
+
+        let remove = document.createElement("th");
+        remove.style.width = "25%";
+
+        table.appendChild(name).textContent = "Product";
+        table.appendChild(price).textContent = "Price";
+        table.appendChild(remove).textContent = "";
+
+        fragment.querySelector("li").appendChild(table);
+        fragment.querySelector("li").setAttribute("itemId", item["name"]);
+
+        fragment.querySelector("li").setAttribute("class", "itemLi");
+
+
+
+        document.querySelector('[categoryid="' + category + '"]').appendChild(fragment);
+        return item;
+    } else {
+        const fragment = document.createDocumentFragment();
+
+        const li = fragment.appendChild(document.createElement('li'));
+
+
+
+        let table = document.createElement("table");
+        table.setAttribute("class", "item");
+        table.style.width = "100%";
+        table.style.border = "0.5px solid black";
+        let name = document.createElement("th");
+        name.style.width = "50%";
+
+        let price = document.createElement("th");
+        price.style.width = "25%";
+
+        let remove = document.createElement("th");
+        remove.style.width = "25%";
+
+        table.appendChild(name).textContent = item["name"];
+        table.appendChild(price).textContent = "$" + item["price"];
+        table.appendChild(remove).textContent = "remove";
+
+        fragment.querySelector("li").appendChild(table);
+        fragment.querySelector("li").setAttribute("itemId", item["name"]);
+
+        fragment.querySelector("li").setAttribute("class", "itemLi");
+
+
+
+        document.querySelector('[categoryid="' + category + '"]').appendChild(fragment);
+        return item;
     }
-    const fragment = document.createDocumentFragment();
-   
-    const li = fragment.appendChild(document.createElement('li'));
     
-
-    
-    let table = document.createElement("table");
-    table.setAttribute("class", "item");
-    table.style.width = "100%";
-  
-
-    let name = document.createElement("th");
-    name.style.width = "50%";
-    
-    let price = document.createElement("th");
-    price.style.width = "25%";
-    let remove = document.createElement("th");
-    remove.style.width = "25%";
-
-    table.appendChild(name).textContent = item["name"];
-    table.appendChild(price).textContent = "$" + item["price"];
-    table.appendChild(remove).textContent = "remove";
-
-    fragment.querySelector("li").appendChild(table);
-    fragment.querySelector("li").setAttribute("itemId", item["name"]);
-    
-    fragment.querySelector("li").setAttribute("class", "itemLi");
-
-
-   
-    document.querySelector('[categoryid="' +category +'"]').appendChild(fragment);
-    return item;
 }
 
 export async function addCategory(category) {
