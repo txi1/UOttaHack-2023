@@ -1,4 +1,4 @@
-import {addItem, addCategory} from './addItem.js';
+import {addItem, addCategory, removeItems} from './addItem.js';
 import Cart from './cart.js';
 
 window.onload = function() {
@@ -9,6 +9,7 @@ window.onload = function() {
 }
 
 function populateCartPage() {
+    removeItems();
     let cart = Cart.loadCart();
     console.log(cart);
     for(let category in cart) {
@@ -21,16 +22,20 @@ function populateCartPage() {
 }
 
 export function populateCategory(evt) {
-    let test = evt.currentTarget.getAttribute("categoryId");
-    console.log(test);
+    let categoryName = evt.currentTarget.getAttribute("categoryId");
+    console.log(categoryName);
+    removeItems();
     let cart = Cart.loadCart();
-    
+    for(let itemIndex in cart[categoryName]){
+        addItem(cart[categoryName][itemIndex], categoryName);
+    }
 }
 
 function addToCart() {
     // let scrapedItem = scrape();
     let scrapedItem = null;
-    return addItem(scrapedItem);
+    addCartItem(scrapedItem["subclass"], scrapedItem["name"], scrapedItem["price"], scrapedItem["image"], scrapedItem["source"]);
+    
 }
 
 function removeFromCart(subclass, name) {
