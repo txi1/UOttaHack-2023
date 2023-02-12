@@ -14,11 +14,22 @@ function scrape(domContent){
     console.log(domContent)
     let product = null
     let price = null
+    let price2 = "";
     if(url.includes("amazon")){
         product = domContent.getElementById("productTitle").innerText
         price = domContent.getElementsByClassName("priceToPay")[0].innerText
+        let dollarSignCount = 0;
+        for(let i in price){
+            if(price[i] === "$"){
+                dollarSignCount++;
+            }
+            if(dollarSignCount >= 2){
+                break;
+            }
+            price2 += price[i];
+        }
     }
-    return {"name":product,"price":price,"source":url}
+    return {"name":product,"price":price2,"source":url}
 }
 
 function doDOMstuff(dom){
@@ -67,7 +78,6 @@ function removeFromCart(subclass, name) {
 function regenerate(categoryName){
     removeItems();
     if(categoryName === null){
-   
         return;
     }
     let cart = Cart.loadCart();
